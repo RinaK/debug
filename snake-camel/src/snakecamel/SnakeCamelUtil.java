@@ -3,13 +3,17 @@ package snakecamel;
 public class SnakeCamelUtil {
 
 	public static String snakeToCamelcase(String snake_case) {
-		String[] words = snake_case.split("_");
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < words.length ; i++) {
-			sb.append(capitalize(words[i]));
+			if(snake_case != "_")  {
+				return capitalize(snake_case);
+			} else {
+				String[] words = snake_case.split("_");
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i < words.length ; i++) {
+					sb.append(capitalize(words[i]));
+				}
+				return new String(sb);
+			}
 		}
-		return new String(sb);
-	}
 	 
 	public static String camelToSnakecase(String camelcase) {
 		StringBuilder sb = new StringBuilder();
@@ -30,10 +34,17 @@ public class SnakeCamelUtil {
 	}
 	
 	static String capitalize(String s) {
+		if(s.charAt(0) == ' ') return " ";
+		if(s.substring(1) == " ") {
+			char first = s.charAt(0);
+			String upperFirst = String.valueOf(Character.toUpperCase(first));
+			return upperFirst;
+		} else {
 		char first = s.charAt(0);
 		char upperFirst = Character.toUpperCase(first);
 		String rest = s.substring(1);
 		return upperFirst + rest;
+		}
 	}
 
 	static String uncapitalize(String s) {
